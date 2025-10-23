@@ -6,6 +6,7 @@ module org.example.kartojimas {
     requires java.naming;
     requires mysql.connector.j;
     requires jakarta.persistence;
+    requires javafx.graphics;
 
     opens org.example.kartojimas to javafx.fxml;
     opens org.example.kartojimas.model to org.hibernate.orm.core;

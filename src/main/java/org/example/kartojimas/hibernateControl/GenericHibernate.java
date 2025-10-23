@@ -108,9 +108,9 @@ public class GenericHibernate {
             CriteriaQuery<MagicalCreature> query = cb.createQuery(MagicalCreature.class);
             Root<MagicalCreature> root = query.from(MagicalCreature.class);
 
-            query.select(root).where(cb.or(
-                    cb.like(root.get("wizard"), wizard),
-                    cb.like(root.get("title"), creatureTitle),
+            query.select(root).where(cb.and(
+                    cb.like(root.get("wizard"), "%" + wizard + "%"),
+                    cb.like(root.get("title"), "%" + creatureTitle + "%"),
                     cb.equal(root.get("creatureType"), creatureType),
                     cb.greaterThan(root.get("dateFound"), date)
             ));

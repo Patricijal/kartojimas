@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-public class MagicalCreature implements Serializable {
+public class MagicalCreature implements Serializable, Comparable<MagicalCreature> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -99,5 +99,16 @@ public class MagicalCreature implements Serializable {
     @Override
     public String toString() {
         return title + " " + wizard + " " + dateFound;
+    }
+
+    @Override
+    public int compareTo(MagicalCreature o) {
+        if(this.title.compareTo(o.title) > 0) {
+            return 1;
+        } else if (this.dateFound.compareTo(o.dateFound) > 0) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 }

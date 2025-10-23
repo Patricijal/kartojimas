@@ -19,5 +19,6 @@
       <DatePicker fx:id="dateField" />
       <ComboBox fx:id="creatureTypeField" prefWidth="150.0" />
       <Button mnemonicParsing="false" onAction="#filterData" text="Filter" />
+      <Button mnemonicParsing="false" onAction="#createNew" text="Create new" />
    </children>
 </VBox>

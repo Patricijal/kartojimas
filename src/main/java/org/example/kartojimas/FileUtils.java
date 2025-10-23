@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileUtils {
-    public static void writeUserToFile(MagicalCreature magicalCreature) {
+    public static void writeUserToFile(MagicalCreature magicalCreature, String fileName) {
         ObjectOutputStream out = null;
-        try(var file = new FileOutputStream("o.txt")) {
+        try(var file = new FileOutputStream(fileName)) {
             out = new ObjectOutputStream(new BufferedOutputStream(file));
             out.writeObject(magicalCreature);
         } catch (IOException e) {
