@@ -12,12 +12,12 @@ import java.util.Scanner;
 public class FileUtils {
     public static void writeUserToFile(MagicalCreature magicalCreature, String fileName) {
         ObjectOutputStream out = null;
-        try(var file = new FileOutputStream(fileName)) {
-            out = new ObjectOutputStream(new BufferedOutputStream(file));
+        try {
+            out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fileName)));
             out.writeObject(magicalCreature);
+            out.close();
         } catch (IOException e) {
             e.printStackTrace();
-//            throw new RuntimeException(e);
         }
     }
 

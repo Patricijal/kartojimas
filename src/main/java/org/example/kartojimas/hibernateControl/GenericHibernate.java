@@ -13,6 +13,7 @@ import jakarta.persistence.criteria.Root;
 import javafx.scene.control.Alert;
 import org.example.kartojimas.model.CreatureType;
 import org.example.kartojimas.model.MagicalCreature;
+import org.example.kartojimas.utils.FxUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,8 +35,8 @@ public class GenericHibernate {
             entityManager.persist(entity); // INSERT
             entityManager.getTransaction().commit();
         } catch (Exception e) {
-//            FxUtils.generateAlert(Alert.AlertType.WARNING, "Oh no", "DB error", "Something went wrong on insert");
-            //FxUtils.generateExceptionAlert(Alert.AlertType.ERROR, "During INSERT", e);
+            FxUtils.generateAlert(Alert.AlertType.WARNING, "Oh no", "DB error", "Something went wrong on insert");
+//            FxUtils.generateExceptionAlert(Alert.AlertType.ERROR, "During INSERT", e);
         } finally {
             if (entityManager != null) entityManager.close();
         }
@@ -48,7 +49,7 @@ public class GenericHibernate {
             entityManager.merge(entity); // UPDATE
             entityManager.getTransaction().commit();
         } catch (Exception e) {
-            //FxUtils.generateExceptionAlert(Alert.AlertType.ERROR, "During UPDATE", e);
+            FxUtils.generateExceptionAlert(Alert.AlertType.ERROR, "During UPDATE", e);
         } finally {
             if (entityManager != null) entityManager.close();
         }
@@ -63,7 +64,7 @@ public class GenericHibernate {
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
-            //FxUtils.generateExceptionAlert(Alert.AlertType.ERROR, "During DELETE", e);
+            FxUtils.generateExceptionAlert(Alert.AlertType.ERROR, "During DELETE", e);
         } finally {
             if (entityManager != null) entityManager.close();
         }
@@ -93,7 +94,7 @@ public class GenericHibernate {
             Query q = entityManager.createQuery(query);
             list = q.getResultList();
         } catch (Exception e) {
-            //FxUtils.generateExceptionAlert(Alert.AlertType.ERROR, "During Get All Records", e);
+            FxUtils.generateExceptionAlert(Alert.AlertType.ERROR, "During Get All Records", e);
         } finally {
             if (entityManager != null) entityManager.close();
         }
@@ -118,7 +119,7 @@ public class GenericHibernate {
             list = q.getResultList();
         } catch (Exception e) {
             // Handle exception (e.g., user not found)
-//            FxUtils.generateAlert(Alert.AlertType.WARNING, "Oh no", "DB error", "Something went wrong getting User by credentials");
+            FxUtils.generateAlert(Alert.AlertType.WARNING, "Oh no", "DB error", "Something went wrong getting Wizard by criteria");
         } finally {
             if (entityManager != null) entityManager.close();
         }

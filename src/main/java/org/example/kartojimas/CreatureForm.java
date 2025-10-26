@@ -5,9 +5,11 @@ import jakarta.persistence.EntityManagerFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import org.example.kartojimas.hibernateControl.GenericHibernate;
 import org.example.kartojimas.model.CreatureType;
 import org.example.kartojimas.model.MagicalCreature;
+import org.example.kartojimas.utils.FxUtils;
 
 import java.net.URL;
 import java.util.Collections;
@@ -21,6 +23,7 @@ public class CreatureForm implements Initializable {
     public DatePicker dateField;
     public TextField wizardField;
     public CheckBox isInDanger;
+    public Button createButton;
 
     private EntityManagerFactory entityManagerFactory;
     private GenericHibernate genericHibernate;
@@ -38,15 +41,27 @@ public class CreatureForm implements Initializable {
     }
 
     public void createMagic() {
+        if (titleField.getText() == null || titleField.getText().trim().isEmpty()) {
+            FxUtils.generateAlert(Alert.AlertType.WARNING, "Oh no", "Error", "Empty title");
+            return;
+        }
+
+        if (typeField.getValue() == null) {
+            FxUtils.generateAlert(Alert.AlertType.WARNING, "Oh no", "Error", "Empty type value");
+            return;
+        }
+
+        if (dateField.getValue() == null) {
+            FxUtils.generateAlert(Alert.AlertType.WARNING, "Oh no", "Error", "Empty date value");
+            return;
+        }
+
         MagicalCreature magicalCreature = new MagicalCreature(titleField.getText(), typeField.getValue(), elixirField.getText(), dateField.getValue(), wizardField.getText(), isInDanger.isSelected());
         genericHibernate.create(magicalCreature);
 
-        // alert
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Success");
-        alert.setContentText("I have a great message for you!");
-        alert.showAndWait();
+        // Close the form
+        Stage stage = (Stage) createButton.getScene().getWindow();
+        stage.close();
 
         new Thread(() -> {
             List<MagicalCreature> magicalCreatureList = genericHibernate.getAllRecords(MagicalCreature.class);
@@ -54,7 +69,9 @@ public class CreatureForm implements Initializable {
             var i = 0;
             for (MagicalCreature m : magicalCreatureList) {
                 System.out.println(m);
-                FileUtils.writeUserToFile(m, "failas" + i);
+//                    FileUtils.writeUserToFile(m, "failas.txt");
+                FileUtils.writeUserToFile(m, "failas" + i + ".txt");
+                i++;
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {

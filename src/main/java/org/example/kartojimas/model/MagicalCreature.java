@@ -103,12 +103,29 @@ public class MagicalCreature implements Serializable, Comparable<MagicalCreature
 
     @Override
     public int compareTo(MagicalCreature o) {
-        if(this.title.compareTo(o.title) > 0) {
+        // First compare by dateFound
+        if (this.dateFound.compareTo(o.dateFound) > 0) {
             return 1;
-        } else if (this.dateFound.compareTo(o.dateFound) > 0) {
+        } else if (this.dateFound.compareTo(o.dateFound) < 0) {
             return -1;
         } else {
-            return 0;
+            // Dates are equal, compare by title
+            if (this.title.compareTo(o.title) > 0) {
+                return 1;
+            } else if (this.title.compareTo(o.title) < 0) {
+                return -1;
+            } else {
+                return 0;
+            }
         }
     }
+//    public int compareTo(MagicalCreature o) {
+//        if(this.title.compareTo(o.title) > 0) {
+//            return 1;
+//        } else if (this.dateFound.compareTo(o.dateFound) > 0) {
+//            return -1;
+//        } else {
+//            return 0;
+//        }
+//    }
 }
